@@ -13,7 +13,7 @@ public class PracticeForm {
     SelenideElement firstName = $("#firstName");
     SelenideElement lastName = $("#lastName");
     SelenideElement userEmail = $("#userEmail");
-    SelenideElement gender = $("#genterWrapper");
+    SelenideElement gender = $("#genterWrapper").$(byText("Female"));
     SelenideElement userNumber = $("#userNumber");
     SelenideElement dateOfBirthInput = $("#dateOfBirthInput");
     SelenideElement datepickerMonth = $(".react-datepicker__month-select");
@@ -32,7 +32,6 @@ public class PracticeForm {
     @BeforeEach
     void BeforeEach() {
         Configuration.pageLoadStrategy = "eager";
-        Configuration.holdBrowserOpen = true;
     }
 
 
@@ -40,6 +39,8 @@ public class PracticeForm {
     void form() {
         //arrange
         open("https://demoqa.com/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         String name = "София";
         String lastNam = "Прекрасная";
         String email = "QA_duru@googl.com";
@@ -68,8 +69,6 @@ public class PracticeForm {
         hobbies.$(byText(hobbiesText)).click();
         pictures.uploadFromClasspath(fileName);
         currentAddress.setValue(address);
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
         state.click();
         optionMenuNCR.click();
         city.click();
@@ -78,9 +77,16 @@ public class PracticeForm {
 
         //assert
         $(".modal-body").shouldBe(visible);
-        $(".modal-body").shouldBe(text(name)).shouldHave(text(name)).shouldHave(text(email))
-                .shouldHave(text(phone)).shouldHave(text("Female")).shouldHave(text(month))
-                .shouldHave(text(year)).shouldHave(text(hobbiesText)).shouldHave(text(fileName))
-                .shouldHave(text(address)).shouldHave(text("NCR Gurgaon"));
+        $(".modal-body").shouldBe(text(name));
+        $(".modal-body").shouldBe(text(name));
+        $(".modal-body").shouldHave(text(email));
+        $(".modal-body").shouldBe(text(phone));
+        $(".modal-body").shouldBe(text("Female"));
+        $(".modal-body").shouldBe(text(month));
+        $(".modal-body").shouldBe(text(year));
+        $(".modal-body").shouldBe(text(hobbiesText));
+        $(".modal-body").shouldBe(text(fileName));
+        $(".modal-body").shouldBe(text(address));
+        $(".modal-body").shouldBe(text("NCR Gurgaon"));
     }
 }
